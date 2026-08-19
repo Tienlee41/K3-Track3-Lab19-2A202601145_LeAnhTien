@@ -65,10 +65,10 @@ NEO4J_PASSWORD=<your-password>
 NEO4J_DATABASE=neo4j
 
 GROQ_API_KEY=gsk_...
-GROQ_MODEL=llama-3.3-70b-versatile
+GROQ_MODEL=openai/gpt-oss-120b
 
 JUDGE_PROVIDER=openai               # 'openai' hoặc 'groq'
-JUDGE_MODEL=gpt-4o-mini             # hoặc llama-3.3-70b-versatile
+JUDGE_MODEL=gpt-4o-mini             # hoặc openai/gpt-oss-120b khi dùng Groq
 OPENAI_API_KEY=sk-...
 
 HF_TOKEN=hf_...                     # Hugging Face User Access Token
@@ -119,7 +119,7 @@ jupyter lab Day19_GraphRAG_vs_FlatRAG_Production_Lab_Guide.ipynb
 ## 🛡️ Scale Guard (Quy tắc an toàn dữ liệu trong Lab)
 
 Trong thời lượng 2 giờ, để tránh cạn kiệt rate limit hoặc tràn bộ nhớ:
-- `LAB_MAX_ARTICLES = 1500` (Số bài báo tối đa)
+- `LAB_MAX_ARTICLES = 5000` (Số bài báo tối đa cho lần chạy lab hiện tại)
 - `LAB_MAX_CHUNKS = 3000` (Số chunk văn bản tối đa)
 - `EXTRACTION_MAX_CHUNKS = 400` (Số chunk trích xuất đồ thị)
 - `CHUNK_WORDS = 220`, `CHUNK_OVERLAP_WORDS = 40`
@@ -139,7 +139,9 @@ Day19-Track3-GraphRAG/
 ├── Day19_GraphRAG_vs_FlatRAG_Production_Lab_Guide.ipynb   # ★ File Notebook thực hành chính
 │
 ├── data/                                                 # 📁 Chứa dữ liệu & Golden schema
-│   └── golden_dataset.csv                                # Schema & 5 câu hỏi đánh giá mẫu (G01–G05)
+│   ├── graphrag_golden_50_first5000.csv                   # 50 câu golden từ 5.000 bài đầu
+│   ├── graphrag_golden_50_first5000_detailed.csv          # Golden dataset dùng bởi notebook
+│   └── graphrag_golden_50_first5000_detailed.xlsx         # Bản spreadsheet để audit
 │
 ├── outputs/                                              # 📁 File kết quả xuất tự động từ notebook (*.csv)
 │   ├── graphrag_eval_results.csv                         # Chi tiết kết quả từng câu hỏi + điểm Judge

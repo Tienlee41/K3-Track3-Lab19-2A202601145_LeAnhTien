@@ -1,0 +1,4 @@
+Loại câu hỏi,Metric,Flat RAG,GraphRAG,Nhận xét phân tích
+factoid,Comprehensiveness,,,,Chưa chạy live evaluation trong repo snapshot.
+multi-hop,Comprehensiveness,,,,Chưa chạy live evaluation trong repo snapshot.
+cross-doc,Comprehensiveness,,,,Chưa chạy live evaluation trong repo snapshot.
