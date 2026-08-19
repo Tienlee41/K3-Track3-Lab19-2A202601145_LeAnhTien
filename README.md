@@ -86,6 +86,11 @@ HF_TOKEN=hf_...                     # Hugging Face User Access Token
 2. Thêm các secret keys vào tab **Secrets (biểu tượng chiếc khóa 🔑)** trên Colab.
 3. Chạy từng section theo Timeline hướng dẫn.
 
+Cell cuối hỗ trợ hai chế độ:
+
+- Mặc định: đọc lại các artifact đã sinh, kiểm tra đủ 50 câu, score/rationale/latency/token, audit, Neo4j provenance và super-node boundary. Chế độ này phù hợp để `Restart & Run All` trước khi nộp mà không gọi lại LLM.
+- Đặt biến môi trường `RUN_FULL_PIPELINE=1`: tái sinh toàn bộ extraction, graph và benchmark; chế độ này phát sinh API usage.
+
 ### Cách 2: Chạy Local Notebook
 ```bash
 # 1. Cài đặt dependencies
@@ -124,6 +129,8 @@ Trong thời lượng 2 giờ, để tránh cạn kiệt rate limit hoặc tràn
 - `EXTRACTION_MAX_CHUNKS = 400` (Số chunk trích xuất đồ thị)
 - `CHUNK_WORDS = 220`, `CHUNK_OVERLAP_WORDS = 40`
 
+`ASSIGNMENT.md` đưa ra guard mặc định 1.500 articles. Lần benchmark này chủ động dùng 5.000 source rows để bao phủ bộ golden-50; số chunk và số chunk gọi extraction vẫn giữ cap lần lượt 3.000 và 400.
+
 ---
 
 ## 📂 Cấu trúc Repo
@@ -145,10 +152,14 @@ Day19-Track3-GraphRAG/
 │
 ├── outputs/                                              # 📁 File kết quả xuất tự động từ notebook (*.csv)
 │   ├── graphrag_eval_results.csv                         # Chi tiết kết quả từng câu hỏi + điểm Judge
-│   └── graphrag_vs_flatrag_summary.csv                   # Bảng so sánh tổng hợp Flat RAG vs GraphRAG
+│   ├── graphrag_vs_flatrag_summary.csv                   # Bảng so sánh tổng hợp Flat RAG vs GraphRAG
+│   └── entity_resolution_audit.csv                       # 128 quyết định Entity Resolution
 │
-├── reports/                                              # 📁 Báo cáo hoàn chỉnh của học viên (Chỉ 1 file duy nhất)
-│   └── lab_report.md                                     # ★ Thuyết minh kỹ thuật (10 câu) + Phân tích lỗi + Reflection
+├── reports/                                              # 📁 Báo cáo chính và phụ lục theo rubric
+│   ├── lab_report.md                                     # ★ Báo cáo tổng hợp 2 phần
+│   ├── technical_defense.md                              # 10 câu bảo vệ kỹ thuật
+│   ├── failure_analysis.md                               # Root-cause analysis các ca lỗi
+│   └── reflection_LeAnhTien.md                           # Mapping + Action Plan
 │
 └── templates/                                            # 📁 Bản sao dự phòng gốc của mẫu báo cáo
     └── lab_report.md
@@ -162,3 +173,4 @@ Học viên commit và push lên GitHub cá nhân:
 1. `Day19_GraphRAG_vs_FlatRAG_Production_Lab_Guide.ipynb` (Notebook đã chạy đầy đủ output các cell).
 2. `outputs/graphrag_eval_results.csv` và `outputs/graphrag_vs_flatrag_summary.csv`.
 3. `reports/lab_report.md` (Điền đầy đủ 2 phần: Thuyết minh kỹ thuật & Suy ngẫm cá nhân).
+4. Các phụ lục rubric: `reports/technical_defense.md`, `reports/failure_analysis.md`, `reports/reflection_LeAnhTien.md`.
